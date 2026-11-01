@@ -1,0 +1,16 @@
+{
+  "name": "Alphabet Flight Academy",
+  "short_name": "Flight Academy",
+  "description": "Airplane and space missions for learning letters.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "fullscreen",
+  "orientation": "any",
+  "background_color": "#0f1838",
+  "theme_color": "#0f1838",
+  "icons": [
+    {"src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png"},
+    {"src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png"},
+    {"src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+  ]
+}

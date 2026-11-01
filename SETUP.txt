@@ -1,0 +1,70 @@
+Alphabet Flight Academy - installable app
+
+=====================================================================
+1. PUT IT ONLINE (one time, free) with GitHub Pages
+=====================================================================
+1. Sign in at github.com and create a new public repository, e.g. "flight-academy".
+2. On the repository page choose "uploading an existing file" and drag in everything
+   from this folder (index.html, firebase-config.js, manifest.webmanifest, sw.js,
+   and the icons and fonts folders). Commit the files.
+3. Open the repository's Settings > Pages. Under "Build and deployment" choose
+   "Deploy from a branch", pick the main branch and the / (root) folder, and save.
+4. After a minute or two the page shows your link, like
+   https://YOUR-NAME.github.io/flight-academy/
+
+=====================================================================
+2. INSTALL IT
+=====================================================================
+iPad:    open the link in Safari > Share > Add to Home Screen > Add.
+         Always start the game from the home-screen icon.
+Android: open the link in Chrome > menu (three dots) > Install app.
+
+=====================================================================
+3. TURN ON SYNC (one time, free) with Firebase
+=====================================================================
+a) Go to console.firebase.google.com and create a project
+   (any name, e.g. "flight-academy"). You can turn Google Analytics off.
+
+b) In the left menu open Build > Firestore Database > Create database.
+   Pick a location near you and start in production mode.
+   (If it asks for an edition, choose Standard.)
+
+c) Open the Rules tab of the database, replace everything with the text
+   below, and press Publish:
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /families/{code} {
+      allow get, create, update: if code.size() >= 16;
+    }
+  }
+}
+
+   These rules only let a device read or write a family's progress if it
+   knows that family's code, and nobody can list other families.
+
+d) Click the gear icon > Project settings > General. Under "Your apps",
+   click the web icon </>, give it a nickname, and register it
+   (no Firebase Hosting needed). Copy the apiKey and projectId values it shows.
+
+e) On GitHub, open firebase-config.js in your repository, click the pencil
+   icon, paste the two values between the quotes, and commit:
+
+     window.AFA_FIREBASE = {
+       apiKey: "AIza....",
+       projectId: "flight-academy-1234"
+     };
+
+f) On the iPad: open the game > Grown-ups > Sync between devices >
+   Create a family code. On the Android device: Grown-ups > enter that
+   same code > Join. Progress from both devices is combined.
+
+Sync is paused while Test mode is on, so testing never reaches his devices.
+
+=====================================================================
+UPDATES
+=====================================================================
+Upload a new index.html over the old one on GitHub. The app checks for
+the new version every time it opens online, so devices update on their own.
+(Your firebase-config.js does not need to change.)
